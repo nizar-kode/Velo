@@ -1,0 +1,1060 @@
+<USER_REQUEST>
+# MOUSEDROID — PREMIUM UI/UX REDESIGN
+
+## IMPORTANT — DO NOT BREAK THE CURRENT APPLICATION
+
+The current **Mousedroid Android client and Windows receiver are working prototypes**.
+
+They already provide the core functionality and must be treated as the stable reference implementation.
+
+**Do NOT delete, replace, or destroy the existing working versions.**
+
+Keep the existing:
+
+* Android application/build
+* Windows receiver/build
+* networking implementation
+* connection logic
+* mouse control
+* keyboard control
+* presenter functionality
+* laser functionality
+* media controls
+* existing communication protocol
+
+The goal is primarily:
+
+> **KEEP THE CURRENT FUNCTIONALITY + REDESIGN THE INTERFACE**
+
+This is a **UI/UX modernization project**, not a complete rewrite.
+
+Before changing anything, inspect the repository and understand how the current Mousedroid application works.
+
+---
+
+# 1. MAIN DESIGN GOAL
+
+Redesign **Mousedroid** so the application feels like a modern premium commercial remote-control / trackpad application inspired by the visual quality and interaction design of modern commercial remote-control apps.
+
+The application should feel like something released for modern Android and Windows in 2026.
+
+Think:
+
+* Windows 11 Fluent Design
+* modern Android design
+* premium dark UI
+* glassmorphism
+* large rounded surfaces
+* subtle transparency
+* dynamic visual feedback
+* elegant animations
+* clean modern icons
+* excellent spacing
+* minimal text
+* large touch targets
+* smooth tactile interactions
+
+The visual direction should be:
+
+**dark + elegant + minimal + futuristic + tactile**
+
+It should NOT look like an old utility application.
+
+---
+
+# 2. GENERAL VISUAL LANGUAGE
+
+Use a deep dark-slate visual system.
+
+Suggested palette direction:
+
+* near-black background
+* dark slate surfaces
+* slightly lighter elevated cards
+* subtle translucent layers
+* soft glow accents
+* restrained gradients
+
+Suggested examples:
+
+* `#0B0F14`
+* `#0F172A`
+* `#111827`
+* `#1E293B`
+
+Do not make the UI excessively colorful.
+
+Accent colors should be subtle and used mainly for:
+
+* active states
+* connection status
+* touch feedback
+* laser state
+* important controls
+
+Use:
+
+* large rounded corners
+* approximately 20–28dp for major Android surfaces
+* softer 12–18dp radius for smaller controls
+* subtle shadows/elevation
+* clean typography
+* modern iconography
+
+Avoid:
+
+* old rectangular buttons
+* dense layouts
+* unnecessary borders
+* excessive labels
+* tiny controls
+* old Android-style tabs
+* visually noisy screens
+* excessive outlines
+
+The application should feel **spacious and expensive**.
+
+---
+
+# 3. ANDROID UI
+
+Mousedroid currently uses a **legacy Android XML-based UI architecture**.
+
+Do not rewrite the entire Android application into another framework merely for visual reasons.
+
+First inspect the existing Android project and determine the minimum changes required.
+
+Prefer:
+
+> Existing Mousedroid Android architecture + redesigned XML/drawable/theme/components
+
+over:
+
+> Complete Android UI rewrite
+
+Modernize the existing layouts while preserving the existing input and communication logic.
+
+The Android application should become edge-to-edge where practical.
+
+Use:
+
+* dark modern surfaces
+* large rounded components
+* subtle transparency where technically practical
+* smooth animations
+* polished pressed states
+* tactile touch feedback
+* modern typography
+* modern icons
+* consistent spacing
+
+The UI should feel native to a modern Android phone despite retaining the existing Mousedroid architecture.
+
+---
+
+# 4. MAIN TRACKPAD SCREEN
+
+The trackpad must be the main focus of Mousedroid.
+
+It should feel like a **real laptop trackpad**, not a remote control full of buttons.
+
+The majority of the screen should be one large interactive surface.
+
+Conceptually:
+
+```text
+┌──────────────────────────────────────┐
+│                                      │
+│                                      │
+│                                      │
+│            TRACKPAD AREA             │
+│                                      │
+│                 ●                    │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+├──────────────────────────────────────┤
+│          LEFT CLICK | RIGHT CLICK    │
+└──────────────────────────────────────┘
+```
+
+Do not literally make it look like a primitive rectangle.
+
+The surface should use:
+
+* rounded corners
+* dark glass-like material
+* subtle gradients
+* subtle depth
+* touch-reactive visuals
+* smooth motion
+
+The actual mouse movement must continue using the **existing Mousedroid mouse implementation**.
+
+Do not rewrite the mouse engine just to redesign the interface.
+
+---
+
+# 5. MOUSLEY-STYLE REACTIVE PIXEL / PARTICLE TOUCH EFFECT
+
+One of the most important visual details is the **reactive pixel / particle field around the touch position**.
+
+When the user touches the trackpad, the surface should visually react.
+
+I want a subtle:
+
+> **reactive pixel / particle field around the touch position**
+
+Desired behavior:
+
+When the user touches:
+
+* small pixels/particles appear around the touch point
+* particles react to the touch
+* there can be a subtle glow
+* particles move slightly
+* opacity varies naturally
+
+When the finger moves:
+
+* the visual field follows the finger
+* particles react to the movement
+* movement uses smooth interpolation
+* there is slight inertia/trailing behavior
+* the effect does not look like a basic Android ripple
+
+The effect should feel:
+
+**fluid + tactile + alive + premium**
+
+Conceptually:
+
+```text
+Finger
+   ↓
+
+    ✦ · •
+  · ✦ ● ✦ ·
+    • ✦ ·
+        ↓
+
+  particles react
+  and follow motion
+```
+
+It should resemble the polished pixel/touch interaction of a premium commercial trackpad application.
+
+Do NOT implement this as a normal circular ripple.
+
+Do NOT make it look like a gaming particle effect.
+
+Keep it subtle and sophisticated.
+
+Possible implementation approaches:
+
+* Android Canvas
+* custom View drawing
+* lightweight particle system
+* animated pixel grid
+* touch distortion
+* glow + particle combination
+
+Choose the implementation that provides the best balance of:
+
+* visual quality
+* responsiveness
+* battery efficiency
+* maintainability
+
+## Performance requirements
+
+The effect must not noticeably reduce trackpad responsiveness.
+
+The actual touch input and mouse movement remain the priority.
+
+Visual effects must be decoupled from the mouse-input logic where possible.
+
+The visual effect must never interfere with:
+
+* mouse movement
+* clicks
+* scrolling
+* dragging
+* gestures
+* multi-touch
+
+---
+
+# 6. TOUCH / TRACKPAD FEEL
+
+Make the trackpad feel smooth and responsive.
+
+Improve the UX around:
+
+* finger movement
+* clicking
+* double-click
+* dragging
+* scrolling
+
+Use subtle animation and feedback.
+
+Where appropriate, use Android haptic feedback for:
+
+* click
+* double-click
+* important interaction confirmations
+
+Do not overuse haptics.
+
+The goal is the feeling of a **physical premium trackpad**.
+
+If the existing mouse acceleration/smoothing works well, preserve it.
+
+Do not rewrite the input engine unnecessarily.
+
+---
+
+# 7. CLICK AREA
+
+Replace the old obvious:
+
+* Left
+* Middle
+* Right
+
+buttons with a more elegant ergonomic interaction surface.
+
+Use a modern bottom paddle/interaction zone.
+
+Suggested concept:
+
+```text
+┌──────────────────────────────────────┐
+│             TRACKPAD                 │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+├───────────────────┬──────────────────┤
+│                   │                  │
+│    LEFT CLICK     │    RIGHT CLICK   │
+│                   │                  │
+└───────────────────┴──────────────────┘
+```
+
+But visually integrate the click area into the overall trackpad surface.
+
+Avoid giant obvious button rectangles.
+
+### Middle click
+
+If middle-click is currently supported, do not remove it.
+
+Find an elegant way to preserve it without destroying the minimalist design.
+
+Possible approaches:
+
+* gesture
+* subtle secondary interaction
+* contextual control
+* long press
+* hidden but discoverable control
+
+Choose the approach that preserves functionality while keeping the interface clean.
+
+---
+
+# 8. FLOATING BOTTOM NAVIGATION
+
+Replace the old top/tab navigation with a modern floating bottom navigation bar.
+
+Suggested destinations:
+
+* Trackpad
+* Presenter
+* Keyboard
+* Media
+
+Use:
+
+* floating rounded pill/card
+* translucent dark surface
+* subtle elevation
+* clean icons
+* active-state indicator
+* smooth transitions
+
+Concept:
+
+```text
+┌──────────────────────────────────────┐
+│                                      │
+│            TRACKPAD                  │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+│  ┌────────────────────────────────┐  │
+│  │ 🖱    📽    ⌨    🎵             │  │
+│  │ Trackpad Presenter Keyboard Media│  │
+│  └────────────────────────────────┘  │
+└──────────────────────────────────────┘
+```
+
+The navigation should feel like part of the application rather than a standard legacy Android tab component.
+
+Preserve the existing navigation logic wherever possible and replace only the presentation layer.
+
+---
+
+# 9. PRESENTER MODE
+
+Presenter Mode should feel like a dedicated handheld presentation remote.
+
+It should be extremely simple and usable while standing in front of an audience.
+
+Use huge touch targets.
+
+Conceptually:
+
+```text
+┌──────────────────────────────────────┐
+│            PRESENTATION              │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+│                                      │
+│  ◀ PREVIOUS              NEXT ▶      │
+│                                      │
+│      Laser ●       Timer 12:34       │
+└──────────────────────────────────────┘
+```
+
+Keep all existing presenter functionality.
+
+Possible controls:
+
+* Previous
+* Next
+* Start presentation
+* Laser
+* Black screen
+* White screen
+* Timer/status
+
+Use large icons and intuitive touch zones.
+
+Do not clutter the screen.
+
+---
+
+# 10. LASER POINTER — EXISTING FEATURE
+
+The current Mousedroid laser functionality may have bugs.
+
+This is important.
+
+Do not completely rewrite the laser architecture as part of this UI task.
+
+Keep the existing laser implementation and protocol as much as possible.
+
+The redesign should:
+
+* make the laser control look much better
+* make active/inactive state obvious
+* provide clear visual feedback
+* make laser interaction feel smooth
+* preserve the current implementation
+
+If you encounter an existing laser bug:
+
+1. identify it
+2. document it
+3. determine whether it is caused by the existing implementation or the new UI
+4. avoid unnecessary architectural changes
+
+Only make the minimum necessary code changes to support the new UI.
+
+Do not turn a UI redesign into a complete laser-system rewrite.
+
+The final interaction should feel like:
+
+**Laser OFF → subtle control**
+
+**Laser ON → obvious active state**
+
+**Touch/movement → smooth laser position**
+
+The actual presentation laser output must remain functional.
+
+---
+
+# 11. KEYBOARD / SHORTCUT MODE
+
+Create a clean shortcut-oriented screen.
+
+Instead of traditional legacy buttons, use modern rounded shortcut chips/cards.
+
+Examples:
+
+```text
+┌──────────────────────────────────────┐
+│             SHORTCUTS                │
+│                                      │
+│   [ Ctrl+C ]      [ Ctrl+V ]         │
+│                                      │
+│   [ Ctrl+X ]      [ Ctrl+Z ]         │
+│                                      │
+│   [ Alt+Tab ]     [ Win+D ]          │
+│                                      │
+└──────────────────────────────────────┘
+```
+
+Use:
+
+* clear icons
+* concise labels
+* large touch targets
+* subtle pressed animations
+
+Prioritize frequently used actions.
+
+Preserve the existing Mousedroid keyboard implementation.
+
+Do not rewrite keyboard communication unnecessarily.
+
+---
+
+# 12. MEDIA MODE
+
+Create a modern media-control interface.
+
+Large, simple controls:
+
+* Previous
+* Play/Pause
+* Next
+* Volume
+* Mute
+* Seek controls if already supported
+
+Use a clean hierarchy.
+
+Concept:
+
+```text
+┌──────────────────────────────────────┐
+│               MEDIA                  │
+│                                      │
+│          ───────────────             │
+│                                      │
+│     ◀        ▶        ▶              │
+│                                      │
+│          ─────────────               │
+│              Volume                 │
+└──────────────────────────────────────┘
+```
+
+Do not overpopulate the screen.
+
+Keep the existing functionality.
+
+---
+
+# 13. CONNECTION UI
+
+The existing Mousedroid connection system must remain functional.
+
+Do not unnecessarily replace the network protocol.
+
+However, modernize the connection experience visually.
+
+Make it feel like:
+
+```text
+● Mousedroid PC
+
+Ready to connect
+
+             [ Connect ]
+```
+
+Instead of exposing implementation details unnecessarily.
+
+Use:
+
+* connection status indicator
+* clean device card
+* subtle status animation
+* polished connection dialog
+* polished loading state
+* polished connecting state
+* clear error state
+
+The user should understand the connection state immediately.
+
+Do not make the interface look like a developer tool.
+
+---
+
+# 14. WINDOWS RECEIVER UI
+
+Modernize the **existing Mousedroid Windows receiver** visually while preserving functionality.
+
+The current implementation may use wxWidgets / Win32-style UI.
+
+Do not replace the entire Windows application architecture solely to achieve the new appearance.
+
+Modernize what is practical within the existing implementation.
+
+Use a Windows 11 / Fluent-inspired aesthetic:
+
+* dark slate
+* rounded cards where practical
+* modern typography
+* subtle transparency where supported
+* compact status information
+* modern controls
+* minimalist layout
+
+The Windows application should not feel like a traditional utility.
+
+It should look like a small premium Windows application.
+
+Prefer a compact receiver/status interface that can mostly live in the system tray.
+
+Concept:
+
+```text
+Mousedroid
+
+● Connected
+Android Device
+
+Latency: 4 ms
+
+[ Disconnect ]
+
+[ Settings ]
+```
+
+Use a clean status dot and minimal telemetry.
+
+Do not create an unnecessarily large dashboard.
+
+---
+
+# 15. WINDOWS SYSTEM TRAY EXPERIENCE
+
+The Mousedroid Windows receiver should have a polished system-tray experience.
+
+The tray menu/flyout can show:
+
+* Mousedroid
+* connection state
+* connected device
+* latency/status
+* disconnect
+* settings
+* exit
+
+Keep it compact.
+
+The application should mostly stay out of the user's way.
+
+Do not remove existing tray functionality.
+
+Improve the presentation of it.
+
+---
+
+# 16. ANIMATIONS
+
+Animations should be:
+
+* smooth
+* subtle
+* fast
+* purposeful
+
+Use animations for:
+
+* navigation transitions
+* active states
+* touch feedback
+* connection state
+* laser activation
+* button presses
+* presenter mode
+* particle/touch reaction
+
+Avoid flashy animations.
+
+The application should feel responsive, not theatrical.
+
+---
+
+# 17. DESIGN SYSTEM
+
+Create a consistent design system across all Mousedroid screens.
+
+Standardize:
+
+## Corner radii
+
+Large surfaces:
+
+**20–28dp**
+
+Small controls:
+
+**12–18dp**
+
+## Spacing
+
+Use generous spacing and avoid cramped layouts.
+
+## Typography
+
+Use modern Android typography on the Android side.
+
+Use a clean modern Windows/system font on Windows.
+
+## Icons
+
+Use consistent modern outline/filled icons.
+
+Do not mix incompatible icon styles.
+
+## Surfaces
+
+Use layered dark surfaces rather than many outlines.
+
+## States
+
+Define clear visual states for:
+
+* default
+* pressed
+* active
+* disabled
+* connecting
+* connected
+* disconnected
+* error
+* laser active
+
+Make state changes visually obvious.
+
+---
+
+# 18. CRITICAL SCOPE RESTRICTION
+
+This is a **UI/UX redesign project**, not a complete rewrite.
+
+DO NOT:
+
+* replace the communication protocol
+* rewrite networking
+* replace working connection logic
+* remove existing mouse movement
+* rewrite keyboard handling
+* rewrite Windows input handling
+* replace the presenter architecture
+* remove existing functionality
+* remove working features
+* delete the current APK
+* delete the current Windows build
+
+Prefer:
+
+> **Existing Mousedroid architecture + redesigned UI**
+
+rather than:
+
+> **Complete rewrite**
+
+Only modify underlying logic when a UI change genuinely requires it.
+
+---
+
+# 19. PRESERVE THE CURRENT BUILDS
+
+Before making changes, identify the current build outputs.
+
+Keep the current:
+
+* Android APK
+* Windows executable/build
+
+available.
+
+Treat them as:
+
+**Mousedroid — Stable Reference**
+
+The redesigned version should be built separately where practical.
+
+This allows comparison between:
+
+### Stable Prototype
+
+Current working implementation
+
+and
+
+### New UI
+
+Premium modern Mousedroid interface
+
+The current prototype must remain usable as a fallback.
+
+---
+
+# 20. IMPLEMENTATION PROCESS
+
+First inspect the entire Mousedroid repository.
+
+Identify:
+
+1. Android entry point
+2. Android package structure
+3. XML layouts
+4. Android themes/styles
+5. drawables/resources
+6. fragments/activities
+7. navigation
+8. trackpad implementation
+9. touch/gesture handling
+10. mouse communication
+11. presenter screen
+12. laser implementation
+13. keyboard implementation
+14. media controls
+15. connection logic
+16. Windows application entry point
+17. Windows UI implementation
+18. system tray implementation
+19. communication/network layer
+20. reusable UI/components
+
+Then determine the **minimum set of files/components that need to change**.
+
+Do not modify unrelated code.
+
+Implement the redesign incrementally.
+
+---
+
+# 21. FIRST IMPLEMENTATION MILESTONE
+
+Before redesigning every screen, achieve this milestone:
+
+### Android
+
+1. Launch Mousedroid.
+2. Display the new modern shell.
+3. Display the redesigned trackpad.
+4. Move the finger.
+5. Confirm mouse movement still works.
+6. Left-click.
+7. Right-click.
+8. Confirm haptic feedback where supported.
+9. Confirm the particle/touch effect works without affecting input.
+
+### Windows
+
+1. Launch the current Mousedroid receiver.
+2. Connect normally.
+3. Confirm mouse movement.
+4. Confirm clicks.
+5. Confirm the receiver remains stable.
+
+Only after this milestone is confirmed should the rest of the UI be redesigned.
+
+---
+
+# 22. VALIDATION
+
+After implementation, verify that the redesigned Mousedroid UI still works with the existing systems.
+
+Test:
+
+* mouse movement
+* left click
+* right click
+* middle click if supported
+* drag
+* double-click
+* scrolling
+* keyboard shortcuts
+* keyboard input
+* presenter previous
+* presenter next
+* laser activation
+* laser movement
+* black screen
+* white screen
+* media controls
+* connection
+* reconnect
+* disconnect
+
+Also test:
+
+* portrait orientation
+* different Android screen sizes
+* touch responsiveness
+* animation performance
+* particle/touch effect performance
+* rapid finger movement
+* multi-touch
+* long press
+* switching modes while connected
+* reconnect after application restart
+* Windows tray behavior
+
+The touch visual effects must never compromise actual mouse input.
+
+---
+
+# 23. PERFORMANCE REQUIREMENTS
+
+The visual redesign must not make the application feel slower.
+
+Priorities are:
+
+1. touch responsiveness
+2. mouse responsiveness
+3. network responsiveness
+4. stability
+5. visual effects
+
+Do not sacrifice real input performance for visual effects.
+
+Avoid:
+
+* unnecessary background threads
+* excessive particle counts
+* continuous expensive rendering when there is no touch
+* memory-heavy animations
+* unnecessary network changes
+
+The touch effect should activate primarily when touch activity occurs.
+
+---
+
+# 24. DESIGN DETAILS THAT MATTER MOST
+
+The largest visible improvements should be:
+
+1. premium dark visual design
+2. large glass-like trackpad
+3. reactive pixel/particle touch effect
+4. floating bottom navigation
+5. beautiful Presenter Mode
+6. modern laser interaction
+7. clean shortcut interface
+8. modern media interface
+9. polished Windows receiver
+10. smooth animations and tactile feedback
+
+The application should immediately communicate:
+
+> **This is a modern premium remote-control application.**
+
+It should not communicate:
+
+> **This is an old utility with redesigned colors.**
+
+---
+
+# 25. ENGINEERING PRINCIPLE
+
+Follow this principle throughout implementation:
+
+> **Maximum visual and UX improvement with minimum disruption to the existing working Mousedroid system.**
+
+When choosing between two implementation options, prefer the option that:
+
+* changes fewer existing components
+* preserves more existing logic
+* is easier to maintain
+* can be reverted easily
+* does not affect networking
+* does not affect input reliability
+
+Do not rewrite functioning code merely because it is old.
+
+Modernize the presentation layer first.
+
+---
+
+# 26. FINAL REPORT
+
+At the end of the work, clearly report:
+
+### UI changes
+
+* Android XML layouts changed
+* themes/styles changed
+* drawables/components changed
+* Windows UI files changed
+* tray UI changes
+
+### Functionality preserved
+
+* mouse
+* keyboard
+* presenter
+* laser
+* media
+* connection
+* communication protocol
+
+### Known issues
+
+Document any pre-existing issue that remains, especially:
+
+* laser bugs
+* connection edge cases
+* platform-specific UI limitations
+
+Do not hide known issues.
+
+### Build outputs
+
+Clearly report:
+
+* location of the new Android APK
+* location of the new Windows build
+* location of the original stable builds
+
+Do not remove the existing Mousedroid builds.
+
+---
+
+# FINAL TARGET
+
+The final result should be:
+
+> **Mousely-level visual polish + Mousedroid's existing working functionality**
+
+while preserving the original application underneath.
+
+The most important principle is:
+
+> **Do not sacrifice working Mousedroid functionality for the redesign.**
+
+Build the new interface around the existing system rather than rebuilding the system around the interface.
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-26T14:34:26+01:00.
+</ADDITIONAL_METADATA>

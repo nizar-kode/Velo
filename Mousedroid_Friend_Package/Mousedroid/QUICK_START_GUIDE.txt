@@ -1,0 +1,30 @@
+========================================================================
+                     MOUSEDROID REMOTE — QUICK START
+========================================================================
+
+Welcome to Mousedroid! Turn your phone into a wireless trackpad and
+presentation remote for your computer.
+
+------------------------------------------------------------------------
+STEP 1: PHONE (Takes 30 seconds)
+------------------------------------------------------------------------
+1. Go into the folder "1_ANDROID_PHONE".
+2. Send "Mousedroid.apk" to your Android phone and install it.
+
+------------------------------------------------------------------------
+STEP 2: COMPUTER (Takes 5 seconds)
+------------------------------------------------------------------------
+1. Go into the folder "2_WINDOWS_PC".
+2. Double-click "START_MOUSEDROID.bat".
+   (No installation or software required!)
+
+------------------------------------------------------------------------
+STEP 3: CONNECT
+------------------------------------------------------------------------
+1. Ensure your phone and PC are on the SAME Wi-Fi network.
+2. Open the Mousedroid app on your phone.
+3. Tap "Wi-Fi Remote (Auto-Connect)".
+4. Your PC's name will appear automatically! Tap it to connect.
+
+Enjoy using your phone as a trackpad and remote control!
+========================================================================

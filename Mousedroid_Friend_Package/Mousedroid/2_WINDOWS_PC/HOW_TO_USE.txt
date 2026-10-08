@@ -1,0 +1,21 @@
+============================================================
+              HOW TO USE MOUSEDROID ON PC
+============================================================
+
+1. DOUBLE-CLICK "START_MOUSEDROID.bat"
+   - No installation needed.
+   - A dark icon will appear in your system tray near the clock.
+
+2. OPEN THE APP ON YOUR PHONE
+   - Make sure your phone is on the same Wi-Fi as this PC.
+   - Tap "Wi-Fi Remote (Auto-Connect)".
+   - Tap this PC when it shows up!
+
+------------------------------------------------------------
+TROUBLESHOOTING (IF PC DOESN'T APPEAR ON PHONE):
+------------------------------------------------------------
+If your phone doesn't see your PC:
+- Right-click "FIREWALL_HELPER_IF_BLOCKED.bat"
+- Choose "Run as administrator"
+- Then run "START_MOUSEDROID.bat" again.
+============================================================

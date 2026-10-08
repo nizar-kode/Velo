@@ -1,0 +1,43 @@
+# Build outputs & artifacts
+.vs/
+bin/
+obj/
+build/
+dist/
+*.zip
+*.apk
+*.aab
+
+# Gradle & Android
+.gradle/
+.kotlin/
+local.properties
+Captures/
+*.hprof
+.externalNativeBuild/
+.cxx/
+
+# Visual Studio & IDEs
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.idea/
+*.iml
+.vscode/
+
+# Python cache & build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Operating system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs & internal tools
+*.log
+graphify-out/

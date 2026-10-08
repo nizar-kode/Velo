@@ -1,0 +1,485 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.darusc.mousedroid.viewmodels.TouchpadViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_space_glass"
+        android:padding="16dp">
+
+        <!-- Glass Segmented Mode Switcher: Trackpad vs Air Laser -->
+        <LinearLayout
+            android:id="@+id/modeTabBar"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/glass_segmented_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.92">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTabTouchpad"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/glass_tab_active"
+                android:elevation="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:padding="0dp"
+                android:text="Trackpad"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTabAirMouse"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:elevation="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:padding="0dp"
+                android:text="Air Laser 🎯"
+                android:textAllCaps="false"
+                android:textColor="#94A3B8"
+                android:textSize="14sp"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+
+        <!-- ================= TRACKPAD MODE CONTAINER ================= -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutTouchpadMode"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/modeTabBar">
+
+            <!-- Frosted Glass Touchpad Surface -->
+            <FrameLayout
+                android:id="@+id/touchpadContainer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/glass_touchpad_surface"
+                app:layout_constraintBottom_toTopOf="@+id/mouseButtonsRow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Mousely-Style Reactive Particle / Pixel Field -->
+                <com.darusc.mousedroid.views.ParticleTouchOverlayView
+                    android:id="@+id/particleOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <!-- Subtle Center Crosshair / Track Indicator -->
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.12"
+                    android:src="@drawable/desktop_icon"
+                    app:tint="#FFFFFF" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFullscreen"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="6dp"
+                    app:backgroundTint="@null"
+                    app:icon="@drawable/ic_fullscreen"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="18dp"
+                    app:iconTint="#FFFFFF" />
+
+                <View
+                    android:id="@+id/touchpadSensor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.0" />
+            </FrameLayout>
+
+            <!-- Integrated Ergonomic Glass Mouse Paddles Deck -->
+            <LinearLayout
+                android:id="@+id/mouseButtonsRow"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/btnToggleMedia">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLeftClick"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_paddle_left"
+                    android:elevation="0dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:letterSpacing="0.08"
+                    android:onClick="@{viewmodel::onMouseButtonClick}"
+                    android:text="LEFT"
+                    android:textAllCaps="true"
+                    android:textColor="#CBD5E1"
+                    android:textSize="13sp"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMiddleClick"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="62dp"
+                    android:layout_height="34dp"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/glass_paddle_mid"
+                    android:elevation="0dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:letterSpacing="0.04"
+                    android:onClick="@{viewmodel::onMouseButtonClick}"
+                    android:text="MID"
+                    android:textAllCaps="true"
+                    android:textColor="#94A3B8"
+                    android:textSize="11sp"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRightClick"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_paddle_right"
+                    android:elevation="0dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:letterSpacing="0.08"
+                    android:onClick="@{viewmodel::onMouseButtonClick}"
+                    android:text="RIGHT"
+                    android:textAllCaps="true"
+                    android:textColor="#CBD5E1"
+                    android:textSize="13sp"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+            <!-- Multimedia Toggle Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnToggleMedia"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingVertical="0dp"
+                android:text="Media Controls"
+                android:textAllCaps="false"
+                android:textColor="#64748B"
+                android:textSize="13sp"
+                app:icon="@drawable/ic_arrow_drop_down"
+                app:iconGravity="textEnd"
+                app:iconTint="#64748B"
+                app:layout_constraintBottom_toTopOf="@id/mediaControls"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Media Controls Grid -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/mediaControls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                app:chipSpacingHorizontal="14dp"
+                app:chipSpacingVertical="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:singleLine="false">
+
+                <ImageButton
+                    android:id="@+id/btnPrev"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_control"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_skip_previos"
+                    app:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnPlayPause"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/glass_button_primary"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_play_pause"
+                    app:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_control"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_skip_next"
+                    app:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnReplay10"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_control"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_replay_10"
+                    app:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnForward10"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_control"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_forward_10"
+                    app:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnVolDown"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_control"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_volume_down"
+                    app:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnVolUp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_control"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_volume_up"
+                    app:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnVolOff"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/rounded_control"
+                    android:onClick="@{viewmodel::onMediaButtonClick}"
+                    android:src="@drawable/ic_volume_off"
+                    app:tint="#FFFFFF" />
+            </com.google.android.material.chip.ChipGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- ================= AIR MOUSE / LASER MODE CONTAINER ================= -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutAirMouseMode"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/modeTabBar">
+
+            <!-- Big Air Mouse Status / Toggle Glass Card -->
+            <LinearLayout
+                android:id="@+id/cardAirToggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/glass_card"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgAirMotionIcon"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:src="@drawable/ic_laser_pointer"
+                    app:tint="#38BDF8" />
+
+                <TextView
+                    android:id="@+id/txtAirStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="AIR MOUSE PAUSED"
+                    android:textColor="#94A3B8"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtAirHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Tap to enable motion control without holding"
+                    android:textColor="#64748B"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnToggleAirMotion"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/glass_button_primary"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="28dp"
+                    android:paddingVertical="12dp"
+                    android:text="⚡ START AIR MOUSE"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+            <!-- Ergonomic Thumb Buttons: Left Click | Recenter | Right Click -->
+            <LinearLayout
+                android:id="@+id/airMouseActionRow"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/cardAirToggle">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAirLeft"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1.2"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:text="Left Click"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAirRecenter"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="0.9"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:text="🎯 Recenter"
+                    android:textAllCaps="false"
+                    android:textColor="#38BDF8"
+                    android:textSize="13sp"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAirRight"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:text="Right Click"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+            <!-- Slide Navigation Paddles: ◀ PREV | NEXT ▶ -->
+            <LinearLayout
+                android:id="@+id/slidePaddlesRow"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/airMouseActionRow">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAirPrevSlide"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:text="◀ Previous Slide"
+                    android:textAllCaps="false"
+                    android:textColor="#CBD5E1"
+                    android:textSize="14sp"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAirNextSlide"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:text="Next Slide ▶"
+                    android:textAllCaps="false"
+                    android:textColor="#CBD5E1"
+                    android:textSize="14sp"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+            <!-- Bottom Trigger: Momentary Hold-to-Aim Bar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAirHoldTrigger"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@drawable/glass_button_laser"
+                android:elevation="0dp"
+                android:text="🔴 HOLD FOR TEMPORARY LASER"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

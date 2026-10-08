@@ -1,0 +1,46 @@
+========================================================================
+             MOUSEDROID PORTABLE — QUICK START GUIDE
+========================================================================
+
+How to use Mousedroid on this or any other Windows PC:
+
+STEP 1: INSTALL APP ON YOUR PHONE
+---------------------------------
+Copy "Mousedroid-Premium-v2.apk" from this folder to your Android phone,
+or download it on your phone, then open and install it.
+
+STEP 2: RUN SERVER ON THIS PC
+-----------------------------
+Simply double-click "Start_Mousedroid.bat".
+- No installation required.
+- No Python required.
+- Everything runs natively from this portable folder.
+- You will see the Mousedroid icon appear in the Windows System Tray
+  near the clock.
+
+STEP 3: 1-TAP CONNECT
+---------------------
+1. Ensure your phone is connected to the same Wi-Fi network as this PC.
+2. Open Mousedroid on your phone.
+3. Tap "Wi-Fi Remote (Auto-Connect)".
+4. This PC will appear AUTOMATICALLY in the device list!
+5. Tap your PC to connect. That's it!
+
+------------------------------------------------------------------------
+FIREWALL NOTICE (IF DEVICES DON'T APPEAR):
+------------------------------------------------------------------------
+If your phone doesn't discover this PC automatically, right-click
+"Allow_Firewall.bat" and choose "Run as administrator" to permit ports
+48291 and 48292 through Windows Firewall.
+
+------------------------------------------------------------------------
+WHAT'S INCLUDED IN THIS PORTABLE PACKAGE:
+------------------------------------------------------------------------
+- Mousedroid.exe           : C++ Input & Mouse Server (Port 48291)
+- discovery_beacon.exe     : Zero-Config UDP Auto-Discovery Beacon (Port 48292)
+- MousedroidCompanion.exe  : Windows 11 Fluent System Tray Companion
+- LaserPointerOverlay.exe  : Transparent Desktop Laser Dot
+- Start_Mousedroid.bat     : 1-Click Launch Script
+- Allow_Firewall.bat       : 1-Click Firewall Permission Script
+- Mousedroid-Premium-v2.apk: Redesigned 2026 Android App with 3D Dot Surface
+========================================================================

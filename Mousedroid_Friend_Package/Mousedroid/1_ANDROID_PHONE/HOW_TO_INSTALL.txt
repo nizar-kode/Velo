@@ -1,0 +1,16 @@
+============================================================
+           HOW TO INSTALL MOUSEDROID ON YOUR PHONE
+============================================================
+
+1. SEND "Mousedroid.apk" TO YOUR PHONE
+   - You can send it via WhatsApp, Telegram, Google Drive,
+     or connect your phone via USB and copy it over.
+
+2. TAP "Mousedroid.apk" TO INSTALL
+   - If your phone asks "Install unknown apps", tap Allow.
+
+3. OPEN MOUSEDROID
+   - Connect to the same Wi-Fi as your PC.
+   - Tap "Wi-Fi Remote (Auto-Connect)".
+   - Your PC will appear automatically! Tap it to connect.
+============================================================

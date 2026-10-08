@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VeloProtocolMessage",
+  "type": "object",
+  "required": ["version", "type", "timestamp", "payload"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "description": "Protocol version, currently 1"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "pair_request",
+        "pair_response",
+        "auth",
+        "auth_response",
+        "mouse_move",
+        "mouse_click",
+        "mouse_down",
+        "mouse_up",
+        "mouse_double_click",
+        "mouse_scroll",
+        "keyboard_text",
+        "keyboard_key",
+        "presentation",
+        "volume",
+        "pointer_move",
+        "ping",
+        "pong"
+      ]
+    },
+    "timestamp": {
+      "type": "integer",
+      "description": "Milliseconds UTC epoch"
+    },
+    "payload": {
+      "type": "object"
+    }
+  }
+}
