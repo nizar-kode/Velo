@@ -131,25 +131,73 @@ public class DiscoveryBeacon : IDisposable
 
     public string GetLocalIpAddress()
     {
+        // 1. Try socket routing probe (discovers the outbound physical LAN interface)
         try
         {
-            foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
+            using var probeSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0);
+            probeSocket.Connect("8.8.8.8", 65530);
+            if (probeSocket.LocalEndPoint is IPEndPoint ep &&
+                !IPAddress.IsLoopback(ep.Address) &&
+                ep.Address.ToString() != "0.0.0.0")
             {
-                if (ni.OperationalStatus == OperationalStatus.Up &&
-                    (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
-                     ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet))
+                string probed = ep.Address.ToString();
+                if (!probed.StartsWith("169.254.") && !probed.StartsWith("127."))
                 {
-                    foreach (var ip in ni.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip.Address))
-                        {
-                            return ip.Address.ToString();
-                        }
-                    }
+                    return probed;
                 }
             }
         }
         catch { }
+
+        // 2. Iterate network interfaces, prioritizing physical Wi-Fi and Ethernet over virtual adapters
+        try
+        {
+            var candidates = new List<(NetworkInterface Ni, IPAddress Ip)>();
+
+            foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.OperationalStatus != OperationalStatus.Up) continue;
+
+                string name = ni.Name.ToLowerInvariant();
+                string desc = ni.Description.ToLowerInvariant();
+
+                // Skip virtual adapters, WSL, Hyper-V, VPNs, pseudo interfaces
+                bool isVirtual = name.Contains("vethernet") || name.Contains("wsl") ||
+                                 name.Contains("hyper-v") || name.Contains("virtual") ||
+                                 name.Contains("vmware") || name.Contains("box") ||
+                                 name.Contains("tailscale") || name.Contains("zerotier") ||
+                                 name.Contains("tap") || name.Contains("bluetooth") ||
+                                 desc.Contains("virtual") || desc.Contains("hyper-v") ||
+                                 desc.Contains("vmware") || desc.Contains("wsl");
+
+                foreach (var unicast in ni.GetIPProperties().UnicastAddresses)
+                {
+                    var ip = unicast.Address;
+                    if (ip.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip))
+                    {
+                        string str = ip.ToString();
+                        if (!str.StartsWith("169.254.") && !str.StartsWith("127."))
+                        {
+                            if (!isVirtual)
+                            {
+                                // Prefer Wi-Fi first, then Ethernet
+                                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                                    return str;
+                                candidates.Add((ni, ip));
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Return first physical Ethernet candidate if found
+            var eth = candidates.FirstOrDefault(c => c.Ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet);
+            if (eth.Ip != null) return eth.Ip.ToString();
+
+            if (candidates.Count > 0) return candidates[0].Ip.ToString();
+        }
+        catch { }
+
         return "127.0.0.1";
     }
 

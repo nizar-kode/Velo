@@ -17,13 +17,17 @@ Write-Host ""
 Get-Process -Name "Velo", "AirPilot*" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 
 # Resolve execution method: prefer dotnet run from project dir
-if ((Test-Path $DotnetExe) -and (Test-Path $ProjectDir)) {
-    Write-Host "[INFO] Launching Velo via .NET 10 SDK..." -ForegroundColor Cyan
-    $env:DOTNET_ROOT = Split-Path $DotnetExe
-    $env:PATH = "$env:DOTNET_ROOT;$env:PATH"
+$ResolvedDotnet = if (Test-Path $DotnetExe) { $DotnetExe } elseif (Get-Command dotnet -ErrorAction SilentlyContinue) { (Get-Command dotnet).Source } else { $null }
+
+if ($ResolvedDotnet -and (Test-Path $ProjectDir)) {
+    Write-Host "[INFO] Launching Velo via .NET 10 SDK ($ResolvedDotnet)..." -ForegroundColor Cyan
+    if (Test-Path (Join-Path $env:USERPROFILE ".dotnet")) {
+        $env:DOTNET_ROOT = Join-Path $env:USERPROFILE ".dotnet"
+        $env:PATH = "$env:DOTNET_ROOT;$env:PATH"
+    }
 
     $psi = New-Object System.Diagnostics.ProcessStartInfo
-    $psi.FileName = $DotnetExe
+    $psi.FileName = $ResolvedDotnet
     $psi.Arguments = "run"
     $psi.WorkingDirectory = $ProjectDir
     $psi.UseShellExecute = $true
@@ -36,7 +40,7 @@ if ((Test-Path $DotnetExe) -and (Test-Path $ProjectDir)) {
     $psi.UseShellExecute = $true
     [System.Diagnostics.Process]::Start($psi) | Out-Null
 } else {
-    Write-Error "Could not find .NET 10 or Velo executable."
+    Write-Error "Could not find .NET 10 SDK or published Velo.exe."
     exit 1
 }
 

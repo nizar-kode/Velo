@@ -5,8 +5,8 @@ import ipaddress
 import psutil
 import sys
 
-DISCOVERY_PORT = 48292
-WIFI_PORT = 48291
+DISCOVERY_PORT = 51820
+WIFI_PORT = 51821
 
 def get_broadcast_addresses():
     """Find all valid subnet broadcast addresses for active non-loopback IPv4 interfaces."""

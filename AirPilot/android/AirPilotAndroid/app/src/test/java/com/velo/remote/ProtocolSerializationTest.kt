@@ -98,4 +98,22 @@ class ProtocolSerializationTest {
         assertEquals("3e861f808a74d71fe04c811e120474cf81e584abb88d5de4a6da0634594f1f22", resp.token)
         assertEquals("Device paired successfully", resp.message)
     }
+
+    @Test
+    fun testVeloBeaconStringParsing() {
+        val beaconString = "VELO_BEACON|DESKTOP-TEST|192.168.1.50|51821"
+        val parts = beaconString.split("|")
+        assertEquals(4, parts.size)
+        assertEquals("VELO_BEACON", parts[0])
+        assertEquals("DESKTOP-TEST", parts[1])
+        assertEquals("192.168.1.50", parts[2])
+        assertEquals(51821, parts[3].toInt())
+    }
+
+    @Test
+    fun testVeloProbePacketConstant() {
+        val probe = "VELO_PROBE"
+        val bytes = probe.toByteArray(Charsets.UTF_8)
+        assertEquals("VELO_PROBE", String(bytes, Charsets.UTF_8))
+    }
 }

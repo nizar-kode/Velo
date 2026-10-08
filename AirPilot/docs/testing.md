@@ -15,14 +15,14 @@ Velo is tested at three levels:
 ```powershell
 & "$env:USERPROFILE\.dotnet\dotnet.exe" test AirPilot\windows\VeloDesktop.Tests\VeloDesktop.Tests.csproj
 ```
-Expected result: **10 passed, 0 failed**.
+Expected result: **12 passed, 0 failed**.
 
 ### Android Test Suite (Gradle JUnit)
 ```powershell
 cd AirPilot\android\AirPilotAndroid
 .\gradlew test
 ```
-Expected result: **BUILD SUCCESSFUL, 4 passed**.
+Expected result: **BUILD SUCCESSFUL, 6 passed**.
 
 ---
 

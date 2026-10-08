@@ -113,4 +113,26 @@ public class ProtocolAndSecurityTests
         // Completed without exception
         Assert.True(true);
     }
+
+    [Fact]
+    public void VeloLogger_WritesToLocalAppDirectory()
+    {
+        string testMessage = $"Test log entry {Guid.NewGuid()}";
+        VeloLogger.Instance.Info("TestCategory", testMessage);
+
+        Assert.True(Directory.Exists(VeloLogger.Instance.LogDirectory));
+        Assert.True(File.Exists(VeloLogger.Instance.LogFilePath));
+
+        string content = File.ReadAllText(VeloLogger.Instance.LogFilePath);
+        Assert.Contains(testMessage, content);
+    }
+
+    [Fact]
+    public void DiscoveryBeacon_GetLocalIpAddress_ReturnsValidLanIp()
+    {
+        string ip = DiscoveryBeacon.Instance.GetLocalIpAddress();
+        Assert.False(string.IsNullOrWhiteSpace(ip));
+        // IP must not be link-local APIPA
+        Assert.False(ip.StartsWith("169.254."));
+    }
 }

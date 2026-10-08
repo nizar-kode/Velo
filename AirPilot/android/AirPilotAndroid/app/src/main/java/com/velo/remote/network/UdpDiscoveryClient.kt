@@ -110,10 +110,18 @@ class UdpDiscoveryClient(private val context: Context) {
             if (parts.size >= 4) {
                 val compName = parts[1].ifBlank { "Windows PC" }
                 val reportedIp = parts[2].trim()
-                val targetIp = if (reportedIp.isNotBlank() && reportedIp != "127.0.0.1" && reportedIp != "0.0.0.0") {
+                val isReportedIpVirtualOrInvalid = reportedIp.isBlank() ||
+                        reportedIp == "127.0.0.1" ||
+                        reportedIp == "0.0.0.0" ||
+                        reportedIp.startsWith("169.254.") ||
+                        (reportedIp.startsWith("172.") && !packetSenderIp.startsWith("172."))
+
+                val targetIp = if (!isReportedIpVirtualOrInvalid) {
                     reportedIp
-                } else {
+                } else if (packetSenderIp.isNotBlank() && packetSenderIp != "127.0.0.1") {
                     packetSenderIp
+                } else {
+                    reportedIp.ifBlank { "127.0.0.1" }
                 }
                 val port = parts[3].toIntOrNull() ?: 51821
 

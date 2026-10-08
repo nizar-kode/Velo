@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/.NET-10.0%20WPF-purple?style=flat-square" alt=".NET 10" />
   <img src="https://img.shields.io/badge/UI-Jetpack%20Compose%20M3-brightgreen?style=flat-square" alt="Compose M3" />
   <img src="https://img.shields.io/badge/Network-100%25%20Offline%20LAN-success?style=flat-square" alt="Offline LAN" />
-  <img src="https://img.shields.io/badge/Tests-Passing%20(14%2F14)-teal?style=flat-square" alt="Tests" />
+  <img src="https://img.shields.io/badge/Tests-Passing%20(18%2F18)-teal?style=flat-square" alt="Tests" />
   <img src="https://img.shields.io/badge/License-MIT-orange?style=flat-square" alt="License" />
 </p>
 
@@ -156,14 +156,14 @@ adb shell am start -n com.velo.remote/.MainActivity
 ```powershell
 & "$env:USERPROFILE\.dotnet\dotnet.exe" test AirPilot\windows\VeloDesktop.Tests\VeloDesktop.Tests.csproj
 ```
-> **10 passed, 0 failed**
+> **12 passed, 0 failed**
 
 ### Android Test Suite (Gradle JUnit)
 ```powershell
 cd AirPilot\android\AirPilotAndroid
 .\gradlew test
 ```
-> **BUILD SUCCESSFUL, 4 passed**
+> **BUILD SUCCESSFUL, 6 passed**
 
 ---
 

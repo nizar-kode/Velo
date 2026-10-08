@@ -41,3 +41,6 @@ Desktop.ini
 # Logs & internal tools
 *.log
 graphify-out/
+user_prompt_full.txt
+*.prompt
+*.ilk

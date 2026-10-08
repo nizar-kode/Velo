@@ -183,11 +183,27 @@ public partial class MainWindow : Window
                 (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
                  ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet))
             {
+                string name = ni.Name.ToLowerInvariant();
+                string desc = ni.Description.ToLowerInvariant();
+                bool isVirtual = name.Contains("vethernet") || name.Contains("wsl") ||
+                                 name.Contains("hyper-v") || name.Contains("virtual") ||
+                                 name.Contains("vmware") || name.Contains("box") ||
+                                 name.Contains("tailscale") || name.Contains("zerotier") ||
+                                 name.Contains("tap") || name.Contains("bluetooth") ||
+                                 desc.Contains("virtual") || desc.Contains("hyper-v") ||
+                                 desc.Contains("vmware") || desc.Contains("wsl");
+
+                if (isVirtual) continue;
+
                 foreach (var ip in ni.GetIPProperties().UnicastAddresses)
                 {
                     if (ip.Address.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip.Address))
                     {
-                        ips.Add(ip.Address.ToString());
+                        string str = ip.Address.ToString();
+                        if (!str.StartsWith("169.254.") && !str.StartsWith("127."))
+                        {
+                            ips.Add(str);
+                        }
                     }
                 }
             }
