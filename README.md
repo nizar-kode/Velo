@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square" alt="Release" />
   <img src="https://img.shields.io/badge/Platform-Windows%2011%20%7C%20Android%208.0+-blue?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/.NET-10.0%20WPF-purple?style=flat-square" alt=".NET 10" />
   <img src="https://img.shields.io/badge/UI-Jetpack%20Compose%20M3-brightgreen?style=flat-square" alt="Compose M3" />
@@ -111,6 +112,15 @@ No cloud servers. No external telemetry. No account sign-ins. 100% local network
 
 ---
 
+## Downloads & Releases
+ 
+Pre-built packages are available on the [**GitHub Releases**](https://github.com/nizar-kode/Velo/releases/tag/v1.0.0) page:
+ 
+- 🪟 **Windows Receiver**: [**Velo-Desktop-v1.0.0-win-x64.zip**](https://github.com/nizar-kode/Velo/releases/download/v1.0.0/Velo-Desktop-v1.0.0-win-x64.zip) (Portable standalone receiver with embedded runtime, no installer required)
+- 📱 **Android Remote**: [**Velo-Remote-v1.0.0.apk**](https://github.com/nizar-kode/Velo/releases/download/v1.0.0/Velo-Remote-v1.0.0.apk) (Native APK for Android 8.0+)
+ 
+---
+ 
 ## Installation & Quick Start
 
 ### 1. Launching Velo Desktop (Windows)
