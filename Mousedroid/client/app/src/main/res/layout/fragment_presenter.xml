@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.darusc.mousedroid.viewmodels.PresenterViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_space_glass"
+        android:padding="16dp">
+
+        <!-- Top Header & Timer Bar -->
+        <LinearLayout
+            android:id="@+id/headerBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtPresenterTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Air Presenter"
+                android:textColor="#38BDF8"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/glass_button_default"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:text="00:00"
+                android:textColor="#F8FAFC"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/btnResetTimer"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/glass_button_default"
+                android:src="@drawable/ic_replay"
+                app:tint="#94A3B8" />
+        </LinearLayout>
+
+        <!-- Slide Navigation Row (Previous & Next) -->
+        <LinearLayout
+            android:id="@+id/slideControlsRow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@id/cardAirToggle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerBar">
+
+            <!-- Previous Slide Button -->
+            <FrameLayout
+                android:id="@+id/btnPrevSlide"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/glass_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_skip_previos"
+                        app:tint="#38BDF8" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-black"
+                        android:letterSpacing="0.05"
+                        android:text="PREVIOUS"
+                        android:textColor="#E2E8F0"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Next Slide Button -->
+            <FrameLayout
+                android:id="@+id/btnNextSlide"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/glass_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_skip_next"
+                        app:tint="#38BDF8" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-black"
+                        android:letterSpacing="0.05"
+                        android:text="NEXT SLIDE"
+                        android:textColor="#E2E8F0"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Big Air Mouse Continuous Toggle Card -->
+        <LinearLayout
+            android:id="@+id/cardAirToggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/glass_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnLaserHold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/imgLaserDot"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_laser_pointer"
+                app:tint="#38BDF8" />
+
+            <TextView
+                android:id="@+id/txtLaserStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-bold"
+                android:text="AIR MOUSE PAUSED"
+                android:textColor="#94A3B8"
+                android:textSize="16sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnToggleAirMotion"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/glass_button_primary"
+                android:elevation="0dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="10dp"
+                android:text="⚡ TOGGLE AIR MOUSE ON"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+
+        <!-- Momentary Hold Trigger -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLaserHold"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/glass_button_laser"
+            android:elevation="0dp"
+            android:text="🔴 HOLD FOR TEMPORARY LASER"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toTopOf="@id/quickActionsCard" />
+
+        <!-- Quick Presentation Actions Glass Card -->
+        <LinearLayout
+            android:id="@+id/quickActionsCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/glass_card"
+            android:orientation="vertical"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="0.05"
+                android:text="PRESENTATION SHORTCUTS"
+                android:textColor="#64748B"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnF5Start"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:padding="8dp"
+                    android:text="F5"
+                    android:textColor="#E2E8F0"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBlackScreen"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:padding="8dp"
+                    android:text="Black"
+                    android:textColor="#E2E8F0"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPptLaser"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:padding="8dp"
+                    android:text="Laser"
+                    android:textColor="#EF4444"
+                    app:backgroundTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEscExit"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass_button_default"
+                    android:elevation="0dp"
+                    android:padding="8dp"
+                    android:text="Esc"
+                    android:textColor="#94A3B8"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

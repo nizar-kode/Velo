@@ -1,0 +1,43 @@
+========================================================================
+                          VELO QUICK START GUIDE
+========================================================================
+
+Thank you for using Velo!
+Velo turns your Android smartphone into an ultra-responsive touchpad,
+keyboard, and gyro air-laser presentation pointer for your Windows PC.
+
+------------------------------------------------------------------------
+1. HOW TO RUN ON WINDOWS
+------------------------------------------------------------------------
+1. Extract this folder anywhere on your PC (e.g. Desktop or C:\Velo).
+2. Double-click "Start_Velo.bat".
+3. Velo will start in your system tray (bottom-right near your clock).
+
+Windows SmartScreen Note:
+If Windows Defender SmartScreen shows "Windows protected your PC":
+-> Click "More info"
+-> Click "Run anyway"
+(This appears on newly downloaded open-source software that lacks an
+expensive commercial digital certificate.)
+
+Firewall Note:
+If your phone does not find your PC, run "Allow_Firewall.bat" as
+Administrator once to automatically permit incoming Wi-Fi connections.
+
+------------------------------------------------------------------------
+2. HOW TO CONNECT FROM YOUR PHONE
+------------------------------------------------------------------------
+1. Install "Velo-Remote.apk" on your Android phone (Android 8.0+).
+2. Connect your phone to the same Wi-Fi network as your PC.
+3. Open Velo and tap "Wi-Fi Remote".
+4. Your PC will appear automatically in the list!
+5. Tap your PC to connect immediately.
+
+------------------------------------------------------------------------
+3. FEATURES
+------------------------------------------------------------------------
+* Glassmorphic Trackpad: Smooth cursor navigation, 2-finger scroll.
+* Gyroscope Air Laser: Wave your phone to control the cursor and presentation.
+* Media & Key Controls: Volume, presentation slides, play/pause.
+* Zero Cloud: 100% offline local network security and instant response.
+========================================================================
